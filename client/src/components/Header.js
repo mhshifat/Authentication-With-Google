@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { currentUser } from "../store/reducers/actions/currentUser";
 import { logoutUser } from "../store/reducers/actions/logoutUser";
+import Payments from "./StripCheckout";
 
 class Header extends Component {
   componentDidMount = () => {
@@ -11,13 +12,24 @@ class Header extends Component {
   };
   renderToTheScreen = () => {
     if (this.props.auth.isAuthenticated) {
-      return (
-        <li>
+      return [
+        <li key="1">
+          <Payments />
+        </li>,
+        <li key="2">
+          <button
+            style={{ marginLeft: "10px" }}
+            className="waves-effect waves-light btn-small"
+          >
+            Credits: {this.props.auth.user.credits}
+          </button>
+        </li>,
+        <li key="3">
           <a href="" onClick={this.logoutHandler}>
             Logout
           </a>
         </li>
-      );
+      ];
     } else {
       return (
         <li>

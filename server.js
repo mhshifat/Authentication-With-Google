@@ -21,6 +21,7 @@ mongoose.connect(
 
 // Import App Routes
 const authRoutes = require("./routes/api/auth");
+const stripeRoutes = require("./routes/api/stripe");
 
 // PORT Variable
 const port = process.env.PORT || 5000;
@@ -36,6 +37,7 @@ app.use(
     keys: [process.env.SESSION_KEYS]
   })
 );
+app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -45,6 +47,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/api", stripeRoutes);
 
 // Listening To Port
 app.listen(port, () => {
